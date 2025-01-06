@@ -1,73 +1,87 @@
-import { GizmoHelper, GizmoViewport, OrbitControls, Stage, TransformControls } from "@react-three/drei"
+import { GizmoHelper, GizmoViewport, Grid, OrbitControls, TransformControls } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import Path from "./components/path"
-import { Event, Mesh, Vector3 } from "three"
+import { Event, Vector3 } from "three"
 import Points from "./components/points"
 import { useTinker } from "tinker-tools"
 import { useState } from "react"
-
-
-type SelectionType = {
-  index: number,
-  mesh: Mesh | undefined
-}
+import View from "./components/view"
+import { MeshSelection } from "./types"
 
 /**
    * to do:
    * 
    * - add a point to the path
    * - remove a point from the path
-   * - move a point around with gizmo
-   * - get output with vector3 array of points
    */
 export default function App() {
 
-  const [selected, setSelected] = useState<SelectionType>({
-    index: -1,
-    mesh: undefined
-  })
-
+  const [selected, setSelected] = useState<MeshSelection>(null!)
   const [positions, setPositions] = useState([
-    new Vector3(-1, 0, 1),
-    new Vector3(-7, 5, 3),
+    new Vector3(1, 0, 0),
     new Vector3(0, 0, 0),
-    new Vector3(5, 3, 5),
-    new Vector3(-2, 0, 4),
-    new Vector3(2, -2, 1),
-    new Vector3(-5, 5, 2)
+    new Vector3(-1, 0, 0)
   ])
 
   const objectChanged = (event: Event<string, unknown> | undefined) => {
-
     const nextPositions = positions.map((position, index) => {
       //@ts-ignore
       return index === selected.index ? event?.target.object.position : position
     })
-
     setPositions(nextPositions)
   }
 
-  return (
-    <Canvas shadows>
-      <Stage intensity={1}>
+  const { catmullrom, centripetal, chordal } = useTinker({
+    catmullrom: { value: true, label: 'Catmullrom' },
+    centripetal: true,
+    chordal: true
+  })
 
-        <Path positions={positions} type="catmullrom" color={0x9d4b4b} />
-        <Path positions={positions} type="centripetal" color={0x2f7f4f} />
-        <Path positions={positions} type="chordal" color={0x3b5b9d} />
+  return (
+    <>
+      <Canvas shadows camera={{ position: [0, 3, 3] }}>
+
+        {
+          catmullrom &&
+          <Path positions={positions} type="catmullrom" color={0x9d4b4b} />
+        }
+        {
+          centripetal &&
+          <Path positions={positions} type="centripetal" color={0x2f7f4f} />
+        }
+        {
+          chordal &&
+          <Path positions={positions} type="chordal" color={0x3b5b9d} />
+        }
+
         <Points positions={positions} setSelected={setSelected} />
+
+        <Grid
+          sectionSize={0}
+          infiniteGrid
+          fadeDistance={25}
+          cellThickness={0.7}
+          cellSize={1}
+          cellColor={0xffffff} />
 
         <OrbitControls makeDefault />
 
         {
-          selected.mesh &&
-          <TransformControls object={selected.mesh} mode="translate" onObjectChange={objectChanged} />
+          selected?.mesh &&
+          <TransformControls
+            mode="translate"
+            object={selected.mesh}
+            onObjectChange={objectChanged}
+            size={0.5} />
         }
 
         <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
-          <GizmoViewport axisColors={['#9d4b4b', '#2f7f4f', '#3b5b9d']} labelColor="white" />
+          <GizmoViewport />
         </GizmoHelper>
 
-      </Stage>
-    </Canvas>
+      </Canvas>
+
+      <View positions={positions} />
+    </>
   )
 }

@@ -1,9 +1,4 @@
-import { Vector3 } from "three"
-
-type PointProperties = {
-    positions: Vector3[],
-    setSelected: Function
-}
+import { PointProperties } from "../types"
 
 export default function Points({ positions, setSelected }: PointProperties) {
 
@@ -11,9 +6,14 @@ export default function Points({ positions, setSelected }: PointProperties) {
         <group>
             {
                 positions.map((position, index) => (
-                    <mesh castShadow receiveShadow position={position} key={`mesh-${index}`} onClick={(event) => setSelected({ index, mesh: event.object })}>
-                        <boxGeometry args={[0.2, 0.2, 0.2]} />
-                        <meshBasicMaterial color={0x286927} />
+                    <mesh
+                        key={`mesh-${index}`}
+                        castShadow
+                        receiveShadow
+                        position={position}
+                        onClick={(event) => setSelected({ index, mesh: event.object })}>
+                        <boxGeometry args={[0.1, 0.1, 0.1]} />
+                        <meshBasicMaterial color={0x027bff} />
                     </mesh>
                 ))
             }
