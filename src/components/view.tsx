@@ -1,7 +1,8 @@
 import { Card, CardContent, Typography } from "@mui/material"
 import { Vector3 } from "three"
+import { ConfigType } from "../types"
 
-export default function View({ points }: { points: Vector3[] }) {
+export default function View({ points, config }: { points: Vector3[], config: ConfigType }) {
 
     if (!points) return
 
@@ -11,7 +12,10 @@ export default function View({ points }: { points: Vector3[] }) {
                 {
                     points?.map((point, index) => (
                         <Typography key={`key-${index}`} fontFamily={'monospace'} fontSize={12}>
-                            {`new Vector3(${point.x},${point.y},${point.z})`}
+                            {`new Vector3(
+                            ${parseFloat(point.x + '').toFixed(config.prescision)},
+                            ${parseFloat(point.y + '').toFixed(config.prescision)},
+                            ${parseFloat(point.z + '').toFixed(config.prescision)})`}
                         </Typography>
                     ))
                 }

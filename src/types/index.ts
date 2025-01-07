@@ -11,6 +11,12 @@ export type PathProperties = {
     color: number
 }
 
+export type CurveTypes = {
+    catmullrom: boolean,
+    centripetal: boolean,
+    chordal: boolean
+}
+
 export type PointProperties = {
     points: Vector3[],
     path: PathTypes,
@@ -21,4 +27,8 @@ export type PathTypes = {
     visible: boolean,
     selected: MeshSelection | null,
     points: Vector3[]
+}
+
+export type ConfigType = {
+    prescision: number
 }
