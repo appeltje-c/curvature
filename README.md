@@ -1,8 +1,8 @@
-# R3F Catmull path editor
+# A path editor to help with Three.js / R3F work
 
 I was searching for a way to create interesting paths in my scene to use as input for my camera motion. 🎥
 
-Using Catmull curves for this is great, but... making a nice path and get those vectors <s>is</s> was a pain. 🫣
+Using Catmullrom curves for this is great, but... making a nice path and get those vectors <s>is</s> was a pain. 🫣
 
 So I decided to create this editor to help me do the job. 🦄
 
