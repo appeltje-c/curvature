@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 import { BufferGeometry, CatmullRomCurve3 } from "three";
-import { PathProperties } from "../types";
+import { PathProperties } from "../../types"
 
 export default function Path({ points, type = 'catmullrom', color }: PathProperties) {
 
