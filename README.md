@@ -1,4 +1,4 @@
-# A path editor to help with Three.js / R3F work
+# Curvature, A path editor to help with Three.js / R3F work
 
 I was searching for a way to create interesting paths in my scene to use as input for my camera motion. 🎥
 
