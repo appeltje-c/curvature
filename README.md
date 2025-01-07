@@ -14,6 +14,7 @@ Enjoy!
 
 ## Live version
 
+[Curvature Editor](https://appeltje-c.github.io/tools/curvature/index.html)
 
 ## Install
 

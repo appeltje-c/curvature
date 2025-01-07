@@ -1,21 +1,21 @@
-import { Paper, Typography } from "@mui/material"
+import { Card, CardContent, Typography } from "@mui/material"
 import { Vector3 } from "three"
 
-type ViewProperties = {
-    positions: Vector3[]
-}
+export default function View({ points }: { points: Vector3[] }) {
 
-export default function View({ positions }: ViewProperties) {
+    if (!points) return
 
     return (
-        <Paper elevation={3} sx={{ p: 2, position: 'absolute', top: 10, left: 10, zIndex: 1000 }}>
-            {
-                positions.map((position, index) => (
-                    <Typography key={`key-${index}`} fontFamily={'monospace'} fontSize={12}>
-                        {`new Vector3(${position.x},${position.y},${position.z})`}
-                    </Typography>
-                ))
-            }
-        </Paper>
+        <Card elevation={3} sx={{ position: 'absolute', top: 10, left: 10, zIndex: 10000 }}>
+            <CardContent>
+                {
+                    points?.map((point, index) => (
+                        <Typography key={`key-${index}`} fontFamily={'monospace'} fontSize={12}>
+                            {`new Vector3(${point.x},${point.y},${point.z})`}
+                        </Typography>
+                    ))
+                }
+            </CardContent>
+        </Card>
     )
 }

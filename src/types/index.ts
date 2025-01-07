@@ -6,12 +6,19 @@ export type MeshSelection = {
 }
 
 export type PathProperties = {
-    positions: Vector3[],
+    points: Vector3[],
     type?: 'catmullrom' | 'centripetal' | 'chordal',
     color: number
 }
 
 export type PointProperties = {
-    positions: Vector3[],
-    setSelected: Function
+    points: Vector3[],
+    path: PathTypes,
+    setPath: Function
+}
+
+export type PathTypes = {
+    visible: boolean,
+    selected: MeshSelection | null,
+    points: Vector3[]
 }
