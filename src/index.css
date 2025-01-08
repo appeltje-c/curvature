@@ -14,3 +14,13 @@ body,
 body {
     background: #303035;
 }
+
+.dropZone {
+    text-align: center;
+    border: 1px dashed #3f3f3f;
+    border-radius: 10px;
+}
+
+.dropZone.drag {
+    border: 1px dashed #007BFF;
+}

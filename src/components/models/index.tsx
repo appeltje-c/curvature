@@ -36,10 +36,10 @@ export default function Model({ setGltf }: { setGltf: Function }) {
 
     }, [])
 
-    const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
     return (
-        <Grid size={12} style={{ textAlign: 'center', border: '1px dashed', borderRadius: 10 }}>
+        <Grid size={12} className={`dropZone ${isDragActive ? 'drag' : ''}`}>
             <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 <p>Drop your .glb or .gltf</p>
