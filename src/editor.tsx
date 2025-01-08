@@ -1,4 +1,4 @@
-import { Center, GizmoHelper, GizmoViewport, Grid, OrbitControls, Stage, TransformControls } from "@react-three/drei"
+import { GizmoHelper, GizmoViewport, Grid, OrbitControls, Stage, TransformControls } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import { Event, Vector3 } from "three"
 import Points from "./components/points"
@@ -8,15 +8,11 @@ import { PathTypes } from "./types"
 import Menu from "./components/menu"
 import Paths from "./components/path"
 import { GLTF } from "three/examples/jsm/Addons.js"
-import Model from "./components/models"
 
 /**
    * to do:
    * 
    * - remove a point from the path
-   * - load your model(s)
-   * - load a path
-   * - save path
    * - hide helper when clicked outside points/blocks
    * - move to zustand
    * - cleanup the types
