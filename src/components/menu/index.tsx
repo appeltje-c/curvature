@@ -5,7 +5,7 @@ import { Vector3 } from 'three'
 import { ConfigType, CurveTypes, PathTypes } from '../../types'
 import Model from '../models'
 import { removePath, savePath } from '../../file'
-import { VariantType, useSnackbar } from 'notistack'
+import { useSnackbar } from 'notistack'
 
 
 const Item = styled(Paper)(({ theme }) => ({
