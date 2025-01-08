@@ -15,7 +15,7 @@ export default function View({ points, config }: { points: Vector3[], config: Co
                             {`new Vector3(
                             ${parseFloat(point.x + '').toFixed(config.prescision)},
                             ${parseFloat(point.y + '').toFixed(config.prescision)},
-                            ${parseFloat(point.z + '').toFixed(config.prescision)})`}
+                            ${parseFloat(point.z + '').toFixed(config.prescision)}),`}
                         </Typography>
                     ))
                 }
