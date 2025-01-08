@@ -13,8 +13,9 @@ import { GLTF } from "three/examples/jsm/Addons.js"
    * to do:
    * 
    * - remove a point from the path
+   * - remove the model
+   * - move the model around
    * - hide helper when clicked outside points/blocks
-   * - move to zustand
    * - cleanup the types
    * 
    */
