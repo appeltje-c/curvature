@@ -2,18 +2,20 @@ import { GizmoHelper, GizmoViewport, Grid, OrbitControls, Stage, TransformContro
 import { Canvas } from "@react-three/fiber"
 import { Event, Vector3 } from "three"
 import Points from "./components/points"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import View from "./components/view"
 import { PathTypes } from "./types"
 import Menu from "./components/menu"
 import Paths from "./components/path"
 import { GLTF } from "three/examples/jsm/Addons.js"
+import { getPath } from "./file"
 
 /**
    * to do:
    * 
    * - remove a point from the path
    * - remove the model
+   * - save current path
    * - move the model around
    * - hide helper when clicked outside points/blocks
    * - cleanup the types
@@ -53,6 +55,26 @@ export default function App() {
       points: nextPositions
     })
   }
+
+  useEffect(() => {
+
+    // check if there is a path in storage
+    const storedPath = getPath()
+    if (storedPath) {
+
+      const array: Vector3[] = []
+      const coords: [{ x: number, y: number, z: number }] = JSON.parse(storedPath)
+      coords.map(coord => {
+        array.push(new Vector3(coord.x, coord.y, coord.z))
+      })
+
+      setPath({
+        ...path,
+        points: array
+      })
+    }
+
+  }, [])
 
   return (
     <>

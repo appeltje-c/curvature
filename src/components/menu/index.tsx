@@ -1,9 +1,12 @@
 import GitHubIcon from '@mui/icons-material/GitHub'
-import { Button, Checkbox, IconButton, Paper, Slider, styled } from '@mui/material';
+import { Button, Checkbox, IconButton, Paper, Slider, styled } from '@mui/material'
 import Grid from "@mui/material/Grid2"
-import { Vector3 } from 'three';
-import { ConfigType, CurveTypes, PathTypes } from '../../types';
-import Model from '../models';
+import { Vector3 } from 'three'
+import { ConfigType, CurveTypes, PathTypes } from '../../types'
+import Model from '../models'
+import { removePath, savePath } from '../../file'
+import { VariantType, useSnackbar } from 'notistack'
+
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -12,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
     ...theme.applyStyles('dark', {
-        backgroundColor: '#1A2027',
+        backgroundColor: theme.palette.background.paper,
     }),
 }));
 
@@ -28,6 +31,8 @@ type MenuProperties = {
 
 export default function Menu({ types, setTypes, path, setPath, config, setConfig, setGltf }: MenuProperties) {
 
+    const { enqueueSnackbar } = useSnackbar()
+
     const addPoint = () => {
         const vec3 = path.points[path.points.length - 1]
         setPath({
@@ -37,6 +42,16 @@ export default function Menu({ types, setTypes, path, setPath, config, setConfig
                 new Vector3(vec3.x - 0.5, vec3.y, vec3.z),
             ]
         })
+    }
+
+    const save = () => {
+        savePath({ path: JSON.stringify(path.points) })
+        enqueueSnackbar('Path Saved.')
+    }
+
+    const clear = () => {
+        removePath()
+        enqueueSnackbar('Path Cleared.')
     }
 
     const handleSliderChange = (_: Event, newValue: number | number[]) => {
@@ -98,11 +113,13 @@ export default function Menu({ types, setTypes, path, setPath, config, setConfig
             </Grid>
 
             <Grid size={12} style={{ paddingBottom: 10 }}>
-                <Item>Actions</Item>
+                <Item>Path</Item>
             </Grid>
 
             <Grid size={12} sx={{ textAlign: 'center' }}>
                 <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }} onClick={addPoint}>Add Point</Button>
+                <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }} onClick={save}>Save</Button>
+                <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }} onClick={clear}>Clear</Button>
             </Grid>
 
             <Grid size={12} sx={{ textAlign: 'center' }}>

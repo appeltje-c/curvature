@@ -18,6 +18,7 @@
     "@react-three/drei": "^9.120.5",
     "@react-three/fiber": "^8.17.10",
     "@types/three": "^0.171.0",
+    "notistack": "^3.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.3.5",

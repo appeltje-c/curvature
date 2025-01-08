@@ -1,6 +1,6 @@
 import { FileWithPath } from "react-dropzone"
 
-export const loadFileAsArrayBuffer = (file: FileWithPath) => {
+const loadFileAsArrayBuffer = (file: FileWithPath) => {
 
     return new Promise((resolve, reject) => {
 
@@ -12,7 +12,7 @@ export const loadFileAsArrayBuffer = (file: FileWithPath) => {
     })
 }
 
-export const stringToArrayBuffer = (text: string, encoding = 'UTF-8') => {
+const stringToArrayBuffer = (text: string, encoding = 'UTF-8') => {
 
     return new Promise((resolve, reject) => {
         const blob = new Blob([text], { type: `text/plain;charset=${encoding}` })
@@ -28,12 +28,34 @@ export const stringToArrayBuffer = (text: string, encoding = 'UTF-8') => {
     })
 }
 
-export const getFileExtension = (file: string) => file?.split('.').pop()
 
-export const isJson = (file: string) => file?.split('.').pop() === 'json'
+const getFileExtension = (file: string) => file?.split('.').pop()
+const isJson = (file: string) => file?.split('.').pop() === 'json'
+const isGlb = (file: string) => file?.split('.').pop() === 'glb'
+const isGltf = (file: string) => file?.split('.').pop() === 'gltf'
+const isZip = (file: string) => file?.split('.').pop() === 'zip'
 
-export const isGlb = (file: string) => file?.split('.').pop() === 'glb'
+const savePath = ({ path }: { path: string }) => {
+    localStorage.setItem("path", path)
+}
 
-export const isGltf = (file: string) => file?.split('.').pop() === 'gltf'
+const getPath = () => {
+    return localStorage.getItem("path")
+}
 
-export const isZip = (file: string) => file?.split('.').pop() === 'zip'
+const removePath = () => {
+    localStorage.removeItem("path")
+}
+
+export {
+    loadFileAsArrayBuffer,
+    stringToArrayBuffer,
+    getFileExtension,
+    isJson,
+    isGlb,
+    isGltf,
+    isZip,
+    savePath,
+    getPath,
+    removePath
+}
