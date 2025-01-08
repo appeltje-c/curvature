@@ -1,6 +1,13 @@
-import { GizmoHelper, GizmoViewport, Grid, OrbitControls, Stage, TransformControls } from "@react-three/drei"
+import {
+  GizmoHelper,
+  GizmoViewport,
+  Grid,
+  OrbitControls,
+  Stage,
+  TransformControls
+} from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
-import { Event, Vector3 } from "three"
+import { Event, Mesh, Vector3 } from "three"
 import Points from "./components/points"
 import { useEffect, useState } from "react"
 import View from "./components/view"
@@ -13,10 +20,10 @@ import { getPath } from "./file"
 /**
    * to do:
    * 
-   * - remove a point from the path
-   * - remove the model
-   * - save current path
-   * - move the model around
+   * - implement zustand
+   * - implement keyboard controls
+   * - remove a point from the path (keyboard controls)
+   * - remove the model (keyboard controls)
    * - hide helper when clicked outside points/blocks
    * - cleanup the types
    * 
@@ -45,10 +52,9 @@ export default function App() {
     ]
   })
 
-  const objectChanged = (event: Event<string, unknown> | undefined) => {
+  const objectChanged = (event: Event<string, any> | undefined) => {
     const nextPositions = path.points.map((point, index) => {
-      //@ts-ignore
-      return index === path.selected.index ? event.target.object.position : point
+      return index === path.selected?.index ? event?.target.object.position : point
     })
     setPath({
       ...path,
@@ -58,10 +64,8 @@ export default function App() {
 
   useEffect(() => {
 
-    // check if there is a path in storage
     const storedPath = getPath()
     if (storedPath) {
-
       const array: Vector3[] = []
       const coords: [{ x: number, y: number, z: number }] = JSON.parse(storedPath)
       coords.map(coord => {
@@ -79,7 +83,6 @@ export default function App() {
   return (
     <>
       <Canvas shadows camera={{ position: [2, 3, 3] }}>
-
         <Paths path={path} types={types} />
 
         {
@@ -99,7 +102,9 @@ export default function App() {
         {
           gltf &&
           <Stage>
-            <primitive object={gltf.scene} />
+            <mesh onClick={(event) => setPath({ ...path, selected: { index: -1, mesh: event.object as Mesh } })}>
+              <primitive object={gltf.scene} />
+            </mesh>
           </Stage>
         }
 
@@ -117,7 +122,6 @@ export default function App() {
         <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
           <GizmoViewport />
         </GizmoHelper>
-
       </Canvas>
 
       <Menu
@@ -128,7 +132,6 @@ export default function App() {
         config={config}
         setConfig={setConfig}
         setGltf={setGltf} />
-
       <View points={path.points} config={config} />
     </>
   )

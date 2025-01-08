@@ -7,7 +7,6 @@ import Model from '../models'
 import { removePath, savePath } from '../../file'
 import { useSnackbar } from 'notistack'
 
-
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
     ...theme.typography.body2,
@@ -46,12 +45,12 @@ export default function Menu({ types, setTypes, path, setPath, config, setConfig
 
     const save = () => {
         savePath({ path: JSON.stringify(path.points) })
-        enqueueSnackbar('Path Saved.')
+        enqueueSnackbar('Path Saved')
     }
 
     const clear = () => {
         removePath()
-        enqueueSnackbar('Path Cleared.')
+        enqueueSnackbar('Path Cleared')
     }
 
     const handleSliderChange = (_: Event, newValue: number | number[]) => {
