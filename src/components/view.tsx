@@ -7,7 +7,7 @@ export default function View({ points, config }: { points: Vector3[], config: Co
     if (!points) return
 
     return (
-        <Card elevation={3} sx={{ position: 'absolute', top: 10, left: 10, zIndex: 10000 }}>
+        <Card elevation={1} sx={{ position: 'absolute', top: 10, left: 10, zIndex: 10000 }}>
             <CardContent>
                 {
                     points?.map((point, index) => (

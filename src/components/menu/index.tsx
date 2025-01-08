@@ -1,8 +1,9 @@
 import GitHubIcon from '@mui/icons-material/GitHub'
-import { Button, Checkbox, IconButton, Paper, Slider, styled } from '@mui/material';
+import { Button, Checkbox, Divider, IconButton, Paper, Slider, styled } from '@mui/material';
 import Grid from "@mui/material/Grid2"
 import { Vector3 } from 'three';
 import { ConfigType, CurveTypes, PathTypes } from '../../types';
+import Model from '../models';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -21,10 +22,11 @@ type MenuProperties = {
     path: PathTypes,
     setPath: Function,
     config: ConfigType,
-    setConfig: Function
+    setConfig: Function,
+    setGltf: Function
 }
 
-export default function Menu({ types, setTypes, path, setPath, config, setConfig }: MenuProperties) {
+export default function Menu({ types, setTypes, path, setPath, config, setConfig, setGltf }: MenuProperties) {
 
     const addPoint = () => {
         const vec3 = path.points[path.points.length - 1]
@@ -96,22 +98,18 @@ export default function Menu({ types, setTypes, path, setPath, config, setConfig
             </Grid>
 
             <Grid size={12} style={{ paddingBottom: 10 }}>
-                <Item>Curve</Item>
+                <Item>Actions</Item>
             </Grid>
 
             <Grid size={12} sx={{ textAlign: 'center' }}>
                 <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }} onClick={addPoint}>Add Point</Button>
-                <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }}>Open</Button>
-                <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }}>Save</Button>
-            </Grid>
-
-            <Grid size={12} style={{ paddingBottom: 10, paddingTop: 10 }}>
-                <Item>Model</Item>
             </Grid>
 
             <Grid size={12} sx={{ textAlign: 'center' }}>
-                <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }}>Add</Button>
+                &nbsp;
             </Grid>
+
+            <Model setGltf={setGltf} />
 
             <Grid size={12} style={{ paddingBottom: 10, paddingTop: 10 }}>
                 <Item>

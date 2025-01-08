@@ -1,4 +1,4 @@
-import { GizmoHelper, GizmoViewport, Grid, OrbitControls, TransformControls } from "@react-three/drei"
+import { Center, GizmoHelper, GizmoViewport, Grid, OrbitControls, Stage, TransformControls } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import { Event, Vector3 } from "three"
 import Points from "./components/points"
@@ -7,6 +7,8 @@ import View from "./components/view"
 import { PathTypes } from "./types"
 import Menu from "./components/menu"
 import Paths from "./components/path"
+import { GLTF } from "three/examples/jsm/Addons.js"
+import Model from "./components/models"
 
 /**
    * to do:
@@ -21,6 +23,8 @@ import Paths from "./components/path"
    * 
    */
 export default function App() {
+
+  const [gltf, setGltf] = useState<GLTF>(null!)
 
   const [types, setTypes] = useState({
     catmullrom: true,
@@ -65,12 +69,20 @@ export default function App() {
         }
 
         <Grid
+          position={[0, 0, 0]}
           sectionSize={0}
           infiniteGrid
           fadeDistance={25}
           cellThickness={0.7}
           cellSize={1}
           cellColor={0xffffff} />
+
+        {
+          gltf &&
+          <Stage>
+            <primitive object={gltf.scene} />
+          </Stage>
+        }
 
         <OrbitControls makeDefault />
 
@@ -95,7 +107,8 @@ export default function App() {
         path={path}
         setPath={setPath}
         config={config}
-        setConfig={setConfig} />
+        setConfig={setConfig}
+        setGltf={setGltf} />
 
       <View points={path.points} config={config} />
     </>
