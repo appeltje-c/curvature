@@ -19,7 +19,7 @@ Enjoy!
 ## Install
 
 ```shell
-git clone git@github.com:appeltje-c/r3f-catmull-path-editor.git
+git clone git@github.com:appeltje-c/curvature.git
 
 npm install && npm run dev
 ```
