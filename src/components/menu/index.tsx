@@ -1,5 +1,5 @@
 import GitHubIcon from '@mui/icons-material/GitHub'
-import { Button, Checkbox, Divider, IconButton, Paper, Slider, styled } from '@mui/material';
+import { Button, Checkbox, IconButton, Paper, Slider, styled } from '@mui/material';
 import Grid from "@mui/material/Grid2"
 import { Vector3 } from 'three';
 import { ConfigType, CurveTypes, PathTypes } from '../../types';
