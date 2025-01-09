@@ -1,9 +1,9 @@
 import { Vector3 } from "three"
-import { PointProperties } from "../types"
+import { useStore } from "../store"
 
-export default function Points({ points, path, setPath }: PointProperties) {
+export default function Points() {
 
-    if (!points) return
+    const { points, pointSelected } = useStore(state => state)
 
     return (
         <group>
@@ -14,9 +14,9 @@ export default function Points({ points, path, setPath }: PointProperties) {
                         castShadow
                         receiveShadow
                         position={point}
-                        onClick={(event) => setPath({ ...path, selected: { index, mesh: event.object } })}>
+                        onClick={(event) => pointSelected({ index, mesh: event.object })}>
                         <boxGeometry args={[0.2, 0.2, 0.2]} />
-                        <meshBasicMaterial color={0x0062cc}/>
+                        <meshBasicMaterial color={0x0062cc} />
                     </mesh>
                 ))
             }

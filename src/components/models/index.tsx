@@ -5,9 +5,11 @@ import { LoadingManager } from "three"
 import { DRACOLoader, GLTFLoader, KTXLoader } from "three/examples/jsm/Addons.js"
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js"
 import Grid from "@mui/material/Grid2"
+import { useStore } from "../../store"
 
-export default function Model({ setGltf }: { setGltf: Function }) {
+export default function Model() {
 
+    const setGltf = useStore(state => state.setGltf)
     const loadingManager = new LoadingManager()
     const dracoloader = new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
     const gltfLoader = new GLTFLoader(loadingManager)

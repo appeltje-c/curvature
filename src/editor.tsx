@@ -1,3 +1,12 @@
+import { useEffect } from "react"
+import { Canvas } from "@react-three/fiber"
+import { Mesh, Vector3 } from "three"
+import Points from "./components/points"
+import View from "./components/view"
+import Menu from "./components/menu"
+import Paths from "./components/path"
+import { getPath } from "./file"
+import { useStore } from "./store"
 import {
   GizmoHelper,
   GizmoViewport,
@@ -6,61 +15,28 @@ import {
   Stage,
   TransformControls
 } from "@react-three/drei"
-import { Canvas } from "@react-three/fiber"
-import { Event, Mesh, Vector3 } from "three"
-import Points from "./components/points"
-import { useEffect, useState } from "react"
-import View from "./components/view"
-import { PathTypes } from "./types"
-import Menu from "./components/menu"
-import Paths from "./components/path"
-import { GLTF } from "three/examples/jsm/Addons.js"
-import { getPath } from "./file"
 
 /**
    * to do:
    * 
-   * - implement zustand
    * - implement keyboard controls
    * - remove a point from the path (keyboard controls)
    * - remove the model (keyboard controls)
    * - hide helper when clicked outside points/blocks
    * - cleanup the types
+   * - travel over path with camera 
    * 
    */
 export default function App() {
 
-  const [gltf, setGltf] = useState<GLTF>(null!)
-
-  const [types, setTypes] = useState({
-    catmullrom: true,
-    centripetal: true,
-    chordal: true
-  })
-
-  const [config, setConfig] = useState({
-    prescision: 4
-  })
-
-  const [path, setPath] = useState<PathTypes>({
-    visible: true,
-    selected: null,
-    points: [
-      new Vector3(1, 0, 0),
-      new Vector3(0, 0, 0),
-      new Vector3(-1, 0, 0)
-    ]
-  })
-
-  const objectChanged = (event: Event<string, any> | undefined) => {
-    const nextPositions = path.points.map((point, index) => {
-      return index === path.selected?.index ? event?.target.object.position : point
-    })
-    setPath({
-      ...path,
-      points: nextPositions
-    })
-  }
+  const {
+    gltf,
+    pointMoved,
+    pointSelected,
+    selectedPoint,
+    setPoints,
+    visibleHelpers
+  } = useStore(state => state)
 
   useEffect(() => {
 
@@ -71,11 +47,7 @@ export default function App() {
       coords.map(coord => {
         array.push(new Vector3(coord.x, coord.y, coord.z))
       })
-
-      setPath({
-        ...path,
-        points: array
-      })
+      setPoints({ points: array })
     }
 
   }, [])
@@ -83,12 +55,9 @@ export default function App() {
   return (
     <>
       <Canvas shadows camera={{ position: [2, 3, 3] }}>
-        <Paths path={path} types={types} />
+        <Paths />
 
-        {
-          path.visible &&
-          <Points points={path.points} setPath={setPath} path={path} />
-        }
+        {visibleHelpers && <Points />}
 
         <Grid
           position={[0, 0, 0]}
@@ -102,7 +71,7 @@ export default function App() {
         {
           gltf &&
           <Stage>
-            <mesh onClick={(event) => setPath({ ...path, selected: { index: -1, mesh: event.object as Mesh } })}>
+            <mesh onClick={(event) => pointSelected({ index: -1, mesh: event.object as Mesh })}>
               <primitive object={gltf.scene} />
             </mesh>
           </Stage>
@@ -111,11 +80,11 @@ export default function App() {
         <OrbitControls makeDefault />
 
         {
-          path.selected?.mesh &&
+          selectedPoint?.mesh &&
           <TransformControls
             mode="translate"
-            object={path.selected.mesh}
-            onObjectChange={objectChanged}
+            object={selectedPoint.mesh}
+            onObjectChange={(event) => pointMoved(event)}
             size={0.5} />
         }
 
@@ -124,15 +93,8 @@ export default function App() {
         </GizmoHelper>
       </Canvas>
 
-      <Menu
-        types={types}
-        setTypes={setTypes}
-        path={path}
-        setPath={setPath}
-        config={config}
-        setConfig={setConfig}
-        setGltf={setGltf} />
-      <View points={path.points} config={config} />
+      <Menu />
+      <View />
     </>
   )
 }

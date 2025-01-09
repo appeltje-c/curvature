@@ -1,21 +1,20 @@
 import { Card, CardContent, Typography } from "@mui/material"
-import { Vector3 } from "three"
-import { ConfigType } from "../types"
+import { useStore } from "../store"
 
-export default function View({ points, config }: { points: Vector3[], config: ConfigType }) {
+export default function View() {
 
-    if (!points) return
+    const { points, prescision } = useStore(state => state)
 
     return (
         <Card elevation={1} sx={{ position: 'absolute', top: 10, left: 10, zIndex: 10000 }}>
             <CardContent>
                 {
-                    points?.map((point, index) => (
+                    points.map((point, index) => (
                         <Typography key={`key-${index}`} fontFamily={'monospace'} fontSize={12}>
                             {`new Vector3(
-                            ${parseFloat(point.x + '').toFixed(config.prescision)},
-                            ${parseFloat(point.y + '').toFixed(config.prescision)},
-                            ${parseFloat(point.z + '').toFixed(config.prescision)}),`}
+                            ${parseFloat(point.x + '').toFixed(prescision)},
+                            ${parseFloat(point.y + '').toFixed(prescision)},
+                            ${parseFloat(point.z + '').toFixed(prescision)}),`}
                         </Typography>
                     ))
                 }
