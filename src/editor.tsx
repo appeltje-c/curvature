@@ -59,7 +59,7 @@ export default function App() {
         {visibleHelpers && <Points />}
 
         <Grid
-          position={[0, 0, 0]}
+          position={[0, -1, 0]}
           sectionSize={0}
           infiniteGrid
           fadeDistance={25}
