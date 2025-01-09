@@ -20,10 +20,9 @@ import {
    * to do:
    * 
    * - implement keyboard controls
-   * - remove a point from the path (keyboard controls)
-   * - remove the model (keyboard controls)
+   * - remove a mesh (point/model) (keyboard controls - X)
+   * - save on S key
    * - hide helper when clicked outside points/blocks
-   * - cleanup the types
    * - travel over path with camera 
    * 
    */
