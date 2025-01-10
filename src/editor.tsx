@@ -16,18 +16,6 @@ import {
 } from "@react-three/drei"
 import KeyboardCapture from "./keyboard"
 
-/**
-   * to do:
-   * 
-   * - revise 'clear saved', make 'new' instead
-   * - hide helper when clicked outside points/blocks
-   * - output options (Vector3, json, csv?)
-   * - travel over path with camera
-   * - Grid options
-   * - Scaling options?
-   * - undo steps cmd-z
-   * 
-   */
 export default function App() {
 
   const {
@@ -51,7 +39,6 @@ export default function App() {
         {visibleHelpers && <Points />}
 
         <Grid
-          position={[0, -1, 0]}
           sectionSize={0}
           infiniteGrid
           fadeDistance={25}

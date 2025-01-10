@@ -3,6 +3,14 @@ import { GLTF } from "three/examples/jsm/Addons.js"
 import { create } from "zustand"
 import { MeshSelection, StoreState } from "../types"
 
+const initialCurve = [
+    new Vector3(1, 0, 0),
+    new Vector3(0, 0, 0),
+    new Vector3(-1, 0, 0)
+]
+
+const pointsStorageKey = "points"
+
 export const useStore = create<StoreState>((set, get) => ({
 
     // curves
@@ -30,11 +38,7 @@ export const useStore = create<StoreState>((set, get) => ({
 
     // path
     selectedPoint: null,
-    points: [
-        new Vector3(1, 0, 0),
-        new Vector3(0, 0, 0),
-        new Vector3(-1, 0, 0)
-    ],
+    points: initialCurve,
     pointMoved: (event: Event<string, any>) => {
         const points = get().points
         const selectedPoint = get().selectedPoint
@@ -69,11 +73,11 @@ export const useStore = create<StoreState>((set, get) => ({
     },
     saveCurve: () => {
         const points = get().points
-        localStorage.setItem("points", JSON.stringify(points))
+        localStorage.setItem(pointsStorageKey, JSON.stringify(points))
     },
     loadSavedCurve: () => {
 
-        const points = localStorage.getItem("points")
+        const points = localStorage.getItem(pointsStorageKey)
         if (points) {
             const array: Vector3[] = []
             const coords: [{ x: number, y: number, z: number }] = JSON.parse(points)
@@ -82,5 +86,9 @@ export const useStore = create<StoreState>((set, get) => ({
             })
             set({ points: array })
         }
+    },
+    newCurve: () => {
+        localStorage.removeItem(pointsStorageKey)
+        set({ points: initialCurve })
     }
 }))

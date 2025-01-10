@@ -32,5 +32,6 @@ export type StoreState = {
     addPoint: Function,
     deletePoint: Function,
     saveCurve: Function,
-    loadSavedCurve: Function
+    loadSavedCurve: Function,
+    newCurve: Function
 }

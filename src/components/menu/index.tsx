@@ -1,28 +1,14 @@
-import GitHubIcon from '@mui/icons-material/GitHub'
-import { Button, Checkbox, IconButton, Paper, Slider, styled } from '@mui/material'
+import { Slider } from '@mui/material'
 import Grid from "@mui/material/Grid2"
-import Model from '../models'
+import MenuModelDrop from './menu-model-drop'
 import { useSnackbar } from 'notistack'
 import { useStore } from '../../store'
-import InfoIcon from '@mui/icons-material/Info'
-import Info from './info'
-import { useState } from 'react'
+import MenuButton from './menu-button'
+import MenuCheck from './menu-check'
+import MenuSection from './menu-section'
+import MenuFooter from './menu-footer'
+import MenuSpacer from './menu-spacer'
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    ...theme.applyStyles('dark', {
-        backgroundColor: theme.palette.background.paper,
-    }),
-}));
-
-/**
- * @todo componify
- * 
- */
 export default function Menu() {
 
     const {
@@ -37,19 +23,15 @@ export default function Menu() {
         setPrescision,
         visibleHelpers,
         setVisibleHelpers,
-        saveCurve
+        saveCurve,
+        newCurve
     } = useStore(state => state)
 
-    const [open, setOpen] = useState(false)
     const { enqueueSnackbar } = useSnackbar()
 
     const save = () => {
         saveCurve()
         enqueueSnackbar('Curve Saved')
-    }
-
-    const handleSliderChange = (_: Event, newValue: number | number[]) => {
-        setPrescision(newValue)
     }
 
     return (
@@ -63,29 +45,11 @@ export default function Menu() {
                 maxWidth: 250
             }}>
 
-            <Grid size={12}>
-                <Item>Curvature 🦄➰🚀💙</Item>
-            </Grid>
-
-            <Grid size={12} >
-                <Checkbox size="small" checked={catmullrom} onChange={() => setCatmullrom(!catmullrom)} />
-                <span style={{ fontSize: 14 }}>Catmullrom</span>
-            </Grid>
-
-            <Grid size={12} >
-                <Checkbox size="small" checked={centripetal} onChange={() => setCentripetal(!centripetal)} />
-                <span style={{ fontSize: 14 }}>Centripetal</span>
-            </Grid>
-
-            <Grid size={12} >
-                <Checkbox size="small" checked={chordal} onChange={() => setChordal(!chordal)} />
-                <span style={{ fontSize: 14 }}>Chordal</span>
-            </Grid>
-
-            <Grid size={12}>
-                <Checkbox size="small" checked={visibleHelpers} onChange={() => setVisibleHelpers(!visibleHelpers)} />
-                <span style={{ fontSize: 14 }}>Show Helpers</span>
-            </Grid>
+            <MenuSection text='Curvature 🦄➰🚀💙' />
+            <MenuCheck label='Catmullrom' value={catmullrom} change={() => setCatmullrom(!catmullrom)} />
+            <MenuCheck label='Centripetal' value={centripetal} change={() => setCentripetal(!centripetal)} />
+            <MenuCheck label='Chordal' value={chordal} change={() => setChordal(!chordal)} />
+            <MenuCheck label='Show Helpers' value={visibleHelpers} change={() => setVisibleHelpers(!visibleHelpers)} />
 
             <Grid size={4}>
                 <span style={{ fontSize: 14 }}>Prescision</span>
@@ -97,39 +61,23 @@ export default function Menu() {
                     step={1}
                     max={11}
                     min={1}
-                    onChange={handleSliderChange} />
+                    onChange={(_, newValue) => setPrescision(newValue)} />
             </Grid>
             <Grid size={2} sx={{ textAlign: 'center' }}>
                 <span>{prescision}</span>
             </Grid>
 
-            <Grid size={12} style={{ paddingBottom: 10 }}>
-                <Item>Path</Item>
-            </Grid>
+            <MenuSection text='Path' />
 
             <Grid size={12} sx={{ textAlign: 'center' }}>
-                <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }} onClick={() => addPoint()}>Add Point</Button>
-                <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }} onClick={save}>Save</Button>
+                <MenuButton text="Add Point" action={addPoint} />
+                <MenuButton text="Save" action={save} />
+                <MenuButton text="New" action={newCurve} />
             </Grid>
 
-            <Grid size={12} sx={{ textAlign: 'center' }}>
-                &nbsp;
-            </Grid>
-
-            <Model />
-
-            <Grid size={12} style={{ paddingBottom: 10, paddingTop: 10 }}>
-                <Item>
-                    <IconButton onClick={() => window.open('https://github.com/appeltje-c/curvature', '_blank')}>
-                        <GitHubIcon />
-                    </IconButton>
-                    <IconButton onClick={() => setOpen(true)}>
-                        <InfoIcon />
-                    </IconButton>
-                </Item>
-            </Grid>
-
-            <Info open={open} setOpen={setOpen} />
+            <MenuSpacer />
+            <MenuModelDrop />
+            <MenuFooter />
 
         </Grid>
     )

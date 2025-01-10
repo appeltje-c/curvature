@@ -7,7 +7,7 @@ import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.j
 import Grid from "@mui/material/Grid2"
 import { useStore } from "../../store"
 
-export default function Model() {
+export default function MenuModelDrop() {
 
     const setGltf = useStore(state => state.setGltf)
     const loadingManager = new LoadingManager()
