@@ -21,7 +21,7 @@ export default function Info({ open, setOpen }: { open: boolean, setOpen: Functi
                         Also;<br />
                         Made with love. If you like it consider to star the <Link href="https://github.com/appeltje-c/curvature" target="_blank">repo</Link> 💙
                         <br />
-                        Taking requests as well 👉 <Link href="https://github.com/appeltje-c/curvature/issues">here</Link>
+                        Taking requests as well 👉 <Link href="https://github.com/appeltje-c/curvature/issues" target="_blank">here</Link>
                     </Typography>
                 </DialogContent>
             </DialogContent>
