@@ -6,7 +6,6 @@ import MenuButton from './menu-button'
 import MenuCheck from './menu-check'
 import MenuSection from './menu-section'
 import MenuFooter from './menu-footer'
-import MenuSpacer from './menu-spacer'
 import {
     FormControl,
     FormControlLabel,
