@@ -19,6 +19,8 @@ export type StoreState = {
     chordal: boolean,
     setChordal: Function,
     prescision: number,
+    notation: string,
+    setNotation: Function,
     setPrescision: Function,
     gltf: GLTF | null,
     setGltf: Function,

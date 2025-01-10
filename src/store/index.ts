@@ -24,6 +24,8 @@ export const useStore = create<StoreState>((set, get) => ({
     // output
     prescision: 4,
     setPrescision: (prescision: number) => set({ prescision }),
+    notation: 'threejs',
+    setNotation: (notation: string) => set({ notation }),
 
     // model
     gltf: null,

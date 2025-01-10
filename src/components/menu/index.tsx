@@ -1,4 +1,4 @@
-import { Slider } from '@mui/material'
+import { Box, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Slider } from '@mui/material'
 import Grid from "@mui/material/Grid2"
 import MenuModelDrop from './menu-model-drop'
 import { useSnackbar } from 'notistack'
@@ -8,6 +8,7 @@ import MenuCheck from './menu-check'
 import MenuSection from './menu-section'
 import MenuFooter from './menu-footer'
 import MenuSpacer from './menu-spacer'
+import { useState } from 'react'
 
 export default function Menu() {
 
@@ -20,6 +21,8 @@ export default function Menu() {
         chordal,
         setChordal,
         prescision,
+        notation,
+        setNotation,
         setPrescision,
         visibleHelpers,
         setVisibleHelpers,
@@ -51,6 +54,8 @@ export default function Menu() {
             <MenuCheck label='Chordal' value={chordal} change={() => setChordal(!chordal)} />
             <MenuCheck label='Show Helpers' value={visibleHelpers} change={() => setVisibleHelpers(!visibleHelpers)} />
 
+            <MenuSection text='Output' />
+
             <Grid size={4}>
                 <span style={{ fontSize: 14 }}>Prescision</span>
             </Grid>
@@ -66,6 +71,16 @@ export default function Menu() {
             <Grid size={2} sx={{ textAlign: 'center' }}>
                 <span>{prescision}</span>
             </Grid>
+
+            <FormControl>
+                <FormLabel sx={{ fontSize: 14, color: '#fff' }}>Notation</FormLabel>
+                <RadioGroup
+                    value={notation}
+                    onChange={(event) => setNotation((event.target as HTMLInputElement).value)}>
+                    <FormControlLabel sx={{ float: 'right' }} value="threejs" control={<Radio />} label="Three.js" />
+                    <FormControlLabel sx={{ position: 'fixed', right: 5 }} value="json" control={<Radio />} label="JSON" />
+                </RadioGroup>
+            </FormControl>
 
             <MenuSection text='Path' />
 

@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid2"
-import MenuItem from "./menu-item"
+import StyledItem from "./styled-item"
 import { IconButton } from "@mui/material"
 import GitHubIcon from '@mui/icons-material/GitHub'
 import InfoIcon from '@mui/icons-material/Info'
@@ -12,14 +12,14 @@ export default function MenuFooter() {
 
     return (
         <Grid size={12} style={{ paddingBottom: 10, paddingTop: 10 }}>
-            <MenuItem>
+            <StyledItem>
                 <IconButton onClick={() => window.open('https://github.com/appeltje-c/curvature', '_blank')}>
                     <GitHubIcon />
                 </IconButton>
                 <IconButton onClick={() => setOpen(true)}>
                     <InfoIcon />
                 </IconButton>
-            </MenuItem>
+            </StyledItem>
             <Info open={open} setOpen={setOpen} />
         </Grid>
     )
