@@ -26,6 +26,8 @@ export type StoreState = {
     setGltf: Function,
     visibleHelpers: boolean,
     setVisibleHelpers: Function,
+    preview: boolean,
+    setPreview: Function,
     selectedPoint: MeshSelection | null,
     points: Vector3[],
     pointMoved: Function,

@@ -13,7 +13,8 @@ import {
     FormLabel,
     Radio,
     RadioGroup,
-    Slider
+    Slider,
+    Switch
 } from '@mui/material'
 
 export default function Menu() {
@@ -33,7 +34,9 @@ export default function Menu() {
         visibleHelpers,
         setVisibleHelpers,
         saveCurve,
-        newCurve
+        newCurve,
+        preview,
+        setPreview
     } = useStore(state => state)
 
     const { enqueueSnackbar } = useSnackbar()
@@ -95,8 +98,19 @@ export default function Menu() {
                 <MenuButton text="Save" action={save} />
                 <MenuButton text="New" action={newCurve} />
             </Grid>
+            <Grid size={12} sx={{ textAlign: 'center', paddingTop: 1, paddingBottom: 1 }}>
+                <FormControlLabel
+                    control={<Switch
+                        checked={preview}
+                        onChange={() => setPreview(!preview)} />
+                    } label={
+                        <>
+                            <span>Preview Camera</span><br />
+                            <span style={{ fontSize: 11 }}>*scroll to follow curve</span>
+                        </>
+                    } />
+            </Grid>
 
-            <MenuSpacer />
             <MenuModelDrop />
             <MenuFooter />
 

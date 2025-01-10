@@ -11,10 +11,12 @@ import {
   GizmoViewport,
   Grid,
   OrbitControls,
+  ScrollControls,
   Stage,
   TransformControls
 } from "@react-three/drei"
 import KeyboardCapture from "./keyboard"
+import Preview from "./components/preview"
 
 export default function App() {
 
@@ -24,7 +26,8 @@ export default function App() {
     pointSelected,
     selectedPoint,
     visibleHelpers,
-    loadSavedCurve
+    loadSavedCurve,
+    preview
   } = useStore(state => state)
 
   useEffect(() => {
@@ -55,7 +58,18 @@ export default function App() {
           </Stage>
         }
 
-        <OrbitControls makeDefault />
+
+        {
+          preview &&
+          <ScrollControls>
+            <Preview />
+          </ScrollControls>
+        }
+
+        {
+          !preview &&
+          <OrbitControls makeDefault />
+        }
 
         {
           selectedPoint?.mesh &&

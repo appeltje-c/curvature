@@ -33,7 +33,7 @@ export default function View() {
                 <ContentCopyIcon sx={{ fontSize: 15 }} />
             </IconButton>
 
-            <CardContent style={{ maxHeight: '90vh', width: 200, overflow: 'scroll' }}>
+            <CardContent style={{ maxHeight: '90vh', width: 250, overflow: 'scroll' }}>
                 {
                     notation === 'threejs' && <pre style={{ fontSize: 11 }}>{getThreejs()}</pre>
                 }

@@ -38,6 +38,9 @@ export const useStore = create<StoreState>((set, get) => ({
         set({ visibleHelpers })
     },
 
+    preview: false,
+    setPreview: (preview: boolean) => set({ preview }),
+
     // path
     selectedPoint: null,
     points: initialCurve,
