@@ -29,5 +29,8 @@ export type StoreState = {
     pointMoved: Function,
     pointSelected: Function,
     setPoints: Function,
-    addPoint: Function
+    addPoint: Function,
+    deletePoint: Function,
+    saveCurve: Function,
+    loadSavedCurve: Function
 }

@@ -35,18 +35,6 @@ const isGlb = (file: string) => file?.split('.').pop() === 'glb'
 const isGltf = (file: string) => file?.split('.').pop() === 'gltf'
 const isZip = (file: string) => file?.split('.').pop() === 'zip'
 
-const savePath = ({ path }: { path: string }) => {
-    localStorage.setItem("path", path)
-}
-
-const getPath = () => {
-    return localStorage.getItem("path")
-}
-
-const removePath = () => {
-    localStorage.removeItem("path")
-}
-
 export {
     loadFileAsArrayBuffer,
     stringToArrayBuffer,
@@ -54,8 +42,5 @@ export {
     isJson,
     isGlb,
     isGltf,
-    isZip,
-    savePath,
-    getPath,
-    removePath
+    isZip
 }

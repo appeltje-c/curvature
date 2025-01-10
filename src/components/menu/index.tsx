@@ -2,9 +2,11 @@ import GitHubIcon from '@mui/icons-material/GitHub'
 import { Button, Checkbox, IconButton, Paper, Slider, styled } from '@mui/material'
 import Grid from "@mui/material/Grid2"
 import Model from '../models'
-import { removePath, savePath } from '../../file'
 import { useSnackbar } from 'notistack'
 import { useStore } from '../../store'
+import InfoIcon from '@mui/icons-material/Info'
+import Info from './info'
+import { useState } from 'react'
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -17,6 +19,10 @@ const Item = styled(Paper)(({ theme }) => ({
     }),
 }));
 
+/**
+ * @todo componify
+ * 
+ */
 export default function Menu() {
 
     const {
@@ -31,19 +37,15 @@ export default function Menu() {
         setPrescision,
         visibleHelpers,
         setVisibleHelpers,
-        points
+        saveCurve
     } = useStore(state => state)
 
+    const [open, setOpen] = useState(false)
     const { enqueueSnackbar } = useSnackbar()
 
     const save = () => {
-        savePath({ path: JSON.stringify(points) })
-        enqueueSnackbar('Path Saved')
-    }
-
-    const clear = () => {
-        removePath()
-        enqueueSnackbar('Path Cleared')
+        saveCurve()
+        enqueueSnackbar('Curve Saved')
     }
 
     const handleSliderChange = (_: Event, newValue: number | number[]) => {
@@ -62,7 +64,7 @@ export default function Menu() {
             }}>
 
             <Grid size={12}>
-                <Item>Curvature ➰</Item>
+                <Item>Curvature 🦄➰🚀💙</Item>
             </Grid>
 
             <Grid size={12} >
@@ -108,7 +110,6 @@ export default function Menu() {
             <Grid size={12} sx={{ textAlign: 'center' }}>
                 <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }} onClick={() => addPoint()}>Add Point</Button>
                 <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }} onClick={save}>Save</Button>
-                <Button size="small" variant="contained" sx={{ fontSize: 11, mr: 1 }} onClick={clear}>Clear</Button>
             </Grid>
 
             <Grid size={12} sx={{ textAlign: 'center' }}>
@@ -122,8 +123,13 @@ export default function Menu() {
                     <IconButton onClick={() => window.open('https://github.com/appeltje-c/curvature', '_blank')}>
                         <GitHubIcon />
                     </IconButton>
+                    <IconButton onClick={() => setOpen(true)}>
+                        <InfoIcon />
+                    </IconButton>
                 </Item>
             </Grid>
+
+            <Info open={open} setOpen={setOpen} />
 
         </Grid>
     )

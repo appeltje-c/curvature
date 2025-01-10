@@ -36,7 +36,6 @@ export const useStore = create<StoreState>((set, get) => ({
         new Vector3(-1, 0, 0)
     ],
     pointMoved: (event: Event<string, any>) => {
-
         const points = get().points
         const selectedPoint = get().selectedPoint
         const nextPositions = points.map((point, index) => {
@@ -59,5 +58,29 @@ export const useStore = create<StoreState>((set, get) => ({
                 new Vector3(vec3.x - 0.5, vec3.y, vec3.z),
             ]
         })
+    },
+    deletePoint: () => {
+        const selectedPoint = get().selectedPoint
+        if (selectedPoint) {
+            const points = get().points
+            points.splice(selectedPoint.index, 1)
+            set({ points, selectedPoint: null })
+        }
+    },
+    saveCurve: () => {
+        const points = get().points
+        localStorage.setItem("points", JSON.stringify(points))
+    },
+    loadSavedCurve: () => {
+
+        const points = localStorage.getItem("points")
+        if (points) {
+            const array: Vector3[] = []
+            const coords: [{ x: number, y: number, z: number }] = JSON.parse(points)
+            coords.map(coord => {
+                array.push(new Vector3(coord.x, coord.y, coord.z))
+            })
+            set({ points: array })
+        }
     }
 }))

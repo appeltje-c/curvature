@@ -1,11 +1,10 @@
 import { useEffect } from "react"
 import { Canvas } from "@react-three/fiber"
-import { Mesh, Vector3 } from "three"
+import { Mesh } from "three"
 import Points from "./components/points"
 import View from "./components/view"
 import Menu from "./components/menu"
 import Paths from "./components/path"
-import { getPath } from "./file"
 import { useStore } from "./store"
 import {
   GizmoHelper,
@@ -15,15 +14,18 @@ import {
   Stage,
   TransformControls
 } from "@react-three/drei"
+import KeyboardCapture from "./keyboard"
 
 /**
    * to do:
    * 
-   * - implement keyboard controls
-   * - remove a mesh (point/model) (keyboard controls - X)
-   * - save on S key
+   * - revise 'clear saved', make 'new' instead
    * - hide helper when clicked outside points/blocks
-   * - travel over path with camera 
+   * - output options (Vector3, json, csv?)
+   * - travel over path with camera
+   * - Grid options
+   * - Scaling options?
+   * - undo steps cmd-z
    * 
    */
 export default function App() {
@@ -33,22 +35,12 @@ export default function App() {
     pointMoved,
     pointSelected,
     selectedPoint,
-    setPoints,
-    visibleHelpers
+    visibleHelpers,
+    loadSavedCurve
   } = useStore(state => state)
 
   useEffect(() => {
-
-    const storedPath = getPath()
-    if (storedPath) {
-      const array: Vector3[] = []
-      const coords: [{ x: number, y: number, z: number }] = JSON.parse(storedPath)
-      coords.map(coord => {
-        array.push(new Vector3(coord.x, coord.y, coord.z))
-      })
-      setPoints({ points: array })
-    }
-
+    loadSavedCurve()
   }, [])
 
   return (
@@ -92,6 +84,7 @@ export default function App() {
         </GizmoHelper>
       </Canvas>
 
+      <KeyboardCapture />
       <Menu />
       <View />
     </>
