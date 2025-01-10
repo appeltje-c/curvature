@@ -1,4 +1,3 @@
-import { Box, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Slider } from '@mui/material'
 import Grid from "@mui/material/Grid2"
 import MenuModelDrop from './menu-model-drop'
 import { useSnackbar } from 'notistack'
@@ -8,7 +7,14 @@ import MenuCheck from './menu-check'
 import MenuSection from './menu-section'
 import MenuFooter from './menu-footer'
 import MenuSpacer from './menu-spacer'
-import { useState } from 'react'
+import {
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Radio,
+    RadioGroup,
+    Slider
+} from '@mui/material'
 
 export default function Menu() {
 
