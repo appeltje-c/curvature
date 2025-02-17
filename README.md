@@ -6,10 +6,6 @@ Using Catmullrom curves for this is great, but... making a nice path and get tho
 
 So I decided to create this editor to help me do the job. 🦄
 
-It's based on the Catmull spine editor found on the three.js examples page
-
-https://threejs.org/examples/#webgl_geometry_spline_editor
-
 Enjoy!
 
 ## Live version
