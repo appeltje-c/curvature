@@ -8,7 +8,8 @@ export default function KeyboardCapture() {
 
     const { enqueueSnackbar } = useSnackbar()
     const [sub] = useKeyboardControls<ControlKeys>()
-    const { deletePoint, saveCurve } = useStore(state => state)
+    const deletePoint = useStore(state => state.deletePoint)
+    const saveCurve = useStore(state => state.saveCurve)
 
     useEffect(() => {
 
