@@ -3,7 +3,9 @@ import { useStore } from "../../store"
 
 export default function Paths() {
 
-    const { catmullrom, centripetal, chordal } = useStore(state => state)
+    const catmullrom = useStore(state => state.catmullrom)
+    const centripetal = useStore(state => state.centripetal)
+    const chordal = useStore(state => state.chordal)
 
     return (
         <>

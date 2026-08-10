@@ -18,25 +18,23 @@ import {
 
 export default function Menu() {
 
-    const {
-        addPoint,
-        catmullrom,
-        setCatmullrom,
-        centripetal,
-        setCentripetal,
-        chordal,
-        setChordal,
-        prescision,
-        notation,
-        setNotation,
-        setPrescision,
-        visibleHelpers,
-        setVisibleHelpers,
-        saveCurve,
-        newCurve,
-        preview,
-        setPreview
-    } = useStore(state => state)
+    const addPoint = useStore(state => state.addPoint)
+    const catmullrom = useStore(state => state.catmullrom)
+    const setCatmullrom = useStore(state => state.setCatmullrom)
+    const centripetal = useStore(state => state.centripetal)
+    const setCentripetal = useStore(state => state.setCentripetal)
+    const chordal = useStore(state => state.chordal)
+    const setChordal = useStore(state => state.setChordal)
+    const prescision = useStore(state => state.prescision)
+    const notation = useStore(state => state.notation)
+    const setNotation = useStore(state => state.setNotation)
+    const setPrescision = useStore(state => state.setPrescision)
+    const visibleHelpers = useStore(state => state.visibleHelpers)
+    const setVisibleHelpers = useStore(state => state.setVisibleHelpers)
+    const saveCurve = useStore(state => state.saveCurve)
+    const newCurve = useStore(state => state.newCurve)
+    const preview = useStore(state => state.preview)
+    const setPreview = useStore(state => state.setPreview)
 
     const { enqueueSnackbar } = useSnackbar()
 

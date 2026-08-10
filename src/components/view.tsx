@@ -6,7 +6,9 @@ import { useSnackbar } from "notistack"
 export default function View() {
 
     const { enqueueSnackbar } = useSnackbar()
-    const { points, prescision, notation } = useStore(state => state)
+    const points = useStore(state => state.points)
+    const prescision = useStore(state => state.prescision)
+    const notation = useStore(state => state.notation)
 
     const round = (value: number) => {
         return Number(parseFloat(value + '').toFixed(prescision))

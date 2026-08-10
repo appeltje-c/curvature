@@ -20,15 +20,13 @@ import Preview from "./components/preview"
 
 export default function App() {
 
-  const {
-    gltf,
-    pointMoved,
-    pointSelected,
-    selectedPoint,
-    visibleHelpers,
-    loadSavedCurve,
-    preview
-  } = useStore(state => state)
+  const gltf = useStore(state => state.gltf)
+  const pointMoved = useStore(state => state.pointMoved)
+  const pointSelected = useStore(state => state.pointSelected)
+  const selectedPoint = useStore(state => state.selectedPoint)
+  const visibleHelpers = useStore(state => state.visibleHelpers)
+  const loadSavedCurve = useStore(state => state.loadSavedCurve)
+  const preview = useStore(state => state.preview)
 
   useEffect(() => {
     loadSavedCurve()

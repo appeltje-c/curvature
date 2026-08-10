@@ -3,7 +3,8 @@ import { useStore } from "../store"
 
 export default function Points() {
 
-    const { points, pointSelected } = useStore(state => state)
+    const points = useStore(state => state.points)
+    const pointSelected = useStore(state => state.pointSelected)
 
     return (
         <group>
